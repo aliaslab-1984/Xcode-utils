@@ -24,3 +24,16 @@ do
 	fi
 done
 echo
+
+FW_PATH=$(dirname "$1")
+PLIST="$FW_PATH/Info.plist"
+if [ -f $PLIST ]; then
+	VER=$(defaults read $PLIST | grep CFBundleShortVersionString | awk  '{print $3}' | tr -d \; | tr -d \")
+	BUILD=$(defaults read $PLIST | grep CFBundleVersion | awk  '{print $3}' | tr -d \; | tr -d \")
+	MIN_OS=$(defaults read $PLIST | grep MinimumOSVersion | awk  '{print $3}' | tr -d \; | tr -d \")
+
+	echo "Version: $VER"
+	echo "Build: $BUILD"
+	echo "Min OS: $MIN_OS"
+	echo
+fi
