@@ -25,12 +25,13 @@ do
 done
 echo
 
-FW_PATH=$(dirname "$1")
+FW_PATH="$(cd "$(dirname "$1")"; pwd -P)/$(basename "$1")"
+FW_PATH=$(dirname "$FW_PATH")
 PLIST="$FW_PATH/Info.plist"
 if [ -f $PLIST ]; then
-	VER=$(defaults read $PLIST | grep CFBundleShortVersionString | awk  '{print $3}' | tr -d \; | tr -d \")
-	BUILD=$(defaults read $PLIST | grep CFBundleVersion | awk  '{print $3}' | tr -d \; | tr -d \")
-	MIN_OS=$(defaults read $PLIST | grep MinimumOSVersion | awk  '{print $3}' | tr -d \; | tr -d \")
+	VER=$(defaults read $PLIST CFBundleShortVersionString)
+	BUILD=$(defaults read $PLIST CFBundleVersion)
+	MIN_OS=$(defaults read $PLIST MinimumOSVersion)
 
 	echo "Version: $VER"
 	echo "Build: $BUILD"
