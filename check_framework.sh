@@ -28,10 +28,11 @@ echo
 FW_PATH="$(cd "$(dirname "$1")"; pwd -P)/$(basename "$1")"
 FW_PATH=$(dirname "$FW_PATH")
 PLIST="$FW_PATH/Info.plist"
-if [ -f $PLIST ]; then
-	VER=$(defaults read $PLIST CFBundleShortVersionString)
-	BUILD=$(defaults read $PLIST CFBundleVersion)
-	MIN_OS=$(defaults read $PLIST MinimumOSVersion)
+echo " plist: $PLIST"
+if [ -f "$PLIST" ]; then
+	VER=$(defaults read "$PLIST" CFBundleShortVersionString)
+	BUILD=$(defaults read "$PLIST" CFBundleVersion)
+	MIN_OS=$(defaults read "$PLIST" MinimumOSVersion)
 
 	echo "Version: $VER"
 	echo "Build: $BUILD"
